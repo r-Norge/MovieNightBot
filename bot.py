@@ -17,6 +17,7 @@ with codecs.open("data/config.yaml", 'r', encoding='utf8') as f:
 
 initial_extensions = [
     'cogs.cogs',
+    'cogs.imdb',
     'cogs.misc',
     'cogs.movienight'
 ]

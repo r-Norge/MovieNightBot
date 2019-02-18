@@ -12,3 +12,7 @@ default server settings:
     - "!"
   moderator role: Moderator
   locale: en_en
+
+# API Keys
+api:
+  omdb:
