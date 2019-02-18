@@ -1,0 +1,14 @@
+bot:
+  token:
+  description: Movie night bot
+  playing status:
+
+# Where the bot will look for translations
+locale_path: ./localization
+
+# Settings used if server settings aren't specified
+default server settings:
+  prefix:
+    - "!"
+  moderator role: Moderator
+  locale: en_en
