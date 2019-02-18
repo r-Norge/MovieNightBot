@@ -48,7 +48,7 @@ class Misc:
     @commands.command()
     async def info(self, ctx):
         """
-        Info om Shite Music Bot
+        Info om Filmkveldbot
         """
         membercount = []
         for guild in self.bot.guilds:
@@ -72,7 +72,6 @@ class Misc:
         embed = discord.Embed(color=ctx.me.color)
         embed.set_author(name=self.bot.user.name, icon_url=avatar)
         embed.set_thumbnail(url=avatar)
-        embed.set_image(url='https://cdn.discordapp.com/attachments/298524946454282250/368118192251469835/vintage1turntable.png')
         embed.add_field(name="{bot.what}",
                         value='{bot.infotext}', inline=False)
         embed.set_footer(icon_url="https://cdn.discordapp.com/icons/532176350019321917/92f43a1f67308a99a30c169db4b671dd.png?size=64",
