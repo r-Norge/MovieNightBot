@@ -65,7 +65,7 @@ class Bot(commands.Bot):
                 await ctx.send('That command is not available in DMs')
 
             elif isinstance(err, commands.CommandOnCooldown):
-                await ctx.send(f"{ctx.message.author.mention} Kommandoen har nettopp blitt brukt. Prøv igjen om `{err.retry_after:.1f}` sekunder.")
+                await ctx.send(f"{ctx.message.author.mention} Command is on cooldown. Try again in `{err.retry_after:.1f}` seconds.")
 
             elif isinstance(err, commands.CheckFailure):
                 pass
