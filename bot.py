@@ -64,6 +64,9 @@ class Bot(commands.Bot):
             elif isinstance(err, commands.NoPrivateMessage):
                 await ctx.send('That command is not available in DMs')
 
+            elif isinstance(err, commands.CommandOnCooldown):
+                await ctx.send(f"{ctx.message.author.mention} Kommandoen har nettopp blitt brukt. Prøv igjen om `{err.retry_after:.1f}` sekunder.")
+
             elif isinstance(err, commands.CheckFailure):
                 pass
 
