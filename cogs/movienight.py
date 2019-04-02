@@ -4,7 +4,8 @@ import discord
 from discord.ext import commands
 from cogs.utils import checks
 
-class MovieNight:
+
+class MovieNight(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 

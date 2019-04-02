@@ -8,7 +8,8 @@ import platform
 from discord.ext import commands
 from cogs.utils import checks
 
-class Misc:
+
+class Misc(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -39,12 +40,6 @@ class Misc:
             guilds += f"{guild.name}\n"
         await ctx.send(guilds)
 
-    @commands.command(name="reloadlocale")
-    async def reload_locale(self, ctx):
-        self.bot.localizer.index_localizations()
-        self.bot.localizer.load_localizations()
-        await ctx.send("Localizations reloaded.")
-
     @commands.command()
     async def info(self, ctx):
         """
@@ -72,23 +67,20 @@ class Misc:
         embed = discord.Embed(color=ctx.me.color)
         embed.set_author(name=self.bot.user.name, icon_url=avatar)
         embed.set_thumbnail(url=avatar)
-        embed.add_field(name="{bot.what}",
-                        value='{bot.infotext}', inline=False)
-        embed.set_footer(icon_url="https://cdn.discordapp.com/icons/532176350019321917/92f43a1f67308a99a30c169db4b671dd.png?size=64",
-                            text="{bot.footer_text}")
-        embed.add_field(name="{bot.how}",
-                        value='{bot.spectext}')
-        embed.add_field(name="{bot.how_many}",
-                        value='{bot.stattext}')
-        embed.add_field(name="{bot.how_long}",
+        embed.add_field(name="What?",
+                        value="MovieNight bot written for use on /r/Norge's Discord Servers. It's open source! "
+                              "You can find it [HERE](https://github.com/Ev-1/ShiteMusicBot)",
+                        inline=False)
+        embed.set_footer(
+            icon_url="https://cdn.discordapp.com/icons/532176350019321917/92f43a1f67308a99a30c169db4b671dd.png?size=64",
+            text="{Made by /r/Norge, for /r/Norge}")
+        embed.add_field(name="How?",
+                        value=f'**Python:** [{platform.python_version()}](https://www.python.org/)'
+                        f'\n**Discord.py:** [{discord.__version__}](https://github.com/Rapptz/discord.py/tree/rewrite)')
+        embed.add_field(name="How many?",
+                        value=f'**Guilds:** {guilds}\n**Users:** {members}')
+        embed.add_field(name="How long?",
                         value=uptimetext)
-
-        embed = ctx.localizer.format_embed(embed,
-            _python_v=platform.python_version(),
-            _discord_v=discord.__version__,
-            _guilds=guilds,
-            _members=members
-        )
         await ctx.send(embed=embed)
 
 

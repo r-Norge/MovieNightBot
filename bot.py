@@ -8,7 +8,6 @@ import traceback
 from discord.ext import commands
 
 from cogs.utils.settings import Settings
-from cogs.utils.localizer import Localizer
 
 
 with codecs.open("data/config.yaml", 'r', encoding='utf8') as f:
@@ -21,6 +20,7 @@ initial_extensions = [
     'cogs.misc',
     'cogs.movienight'
 ]
+
 
 def _get_prefix(bot, message):
     if not message.guild:
@@ -35,7 +35,6 @@ class Bot(commands.Bot):
                          description=conf["bot"]["description"])
 
         self.settings = Settings(**conf['default server settings'])
-        self.localizer = Localizer(conf.get('locale path', "./localization"), conf.get('locale', 'en_en'))
         self.debug = debug
 
         for extension in initial_extensions:
@@ -103,6 +102,7 @@ class Bot(commands.Bot):
 def run_bot(debug: bool=False):
     bot = Bot(debug=debug)
     bot.run()
+
 
 if __name__ == '__main__':
     if 'debug' in sys.argv:

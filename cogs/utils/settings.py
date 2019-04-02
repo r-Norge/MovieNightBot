@@ -10,12 +10,6 @@ class Settings:
 
         self.default_prefix = default_settings["prefix"]
         self.default_mod = default_settings["moderator role"]
-        self.default_locale = default_settings["locale"]
-
-        if not self.default_locale:
-            locale, codepage = locale.getlocale()
-            default_locale, default_codepage = locale.getdefaultlocale()
-            self.default_locale = locale or default_locale
 
         if not os.path.exists(self._DATA_PATH):
             os.makedirs(self._DATA_PATH)

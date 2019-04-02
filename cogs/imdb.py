@@ -13,12 +13,13 @@ with codecs.open("data/config.yaml", 'r', encoding='utf8') as f:
     conf = yaml.safe_load(f)
     api_key = conf["api"]["omdb"]
 
+
 async def error_notfound(ctx, status_msg):
     embed = discord.Embed(description=":x: Not found", color=0xFF0000)
     await status_msg.edit(embed=embed)
 
 
-class Imdb:
+class Imdb(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -34,9 +35,10 @@ class Imdb:
         
         url = "http://www.omdbapi.com/?" + urllib.parse.urlencode({"s": film, "apikey": api_key})
         search = requests.get(url).json()
+
         try:
             best_result_id = search["Search"][0]["imdbID"]
-        except:
+        except KeyError:
             await error_notfound(ctx, status_msg)
             return
 
@@ -44,7 +46,7 @@ class Imdb:
 
         acceptable_media_types = ["movie", "series", "episode"]
         mediatype = data["Type"]
-        if not mediatype in acceptable_media_types:
+        if mediatype not in acceptable_media_types:
             await error_notfound(ctx, status_msg)
             return
 
