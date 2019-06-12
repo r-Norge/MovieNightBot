@@ -17,12 +17,11 @@ class Imdb(commands.Cog):
         self.bot = bot
 
     @commands.cooldown(1, 5, commands.BucketType.user)
-    @commands.command(name='search', aliases=[''])
-    async def search(self, ctx, *film):
+    @commands.command(name='search', aliases=['imdb'])
+    async def _search(self, ctx, *, film):
         """
         Look up information about a movie or TV-Show
         """
-
         embed = discord.Embed(description='Searching... :mag_right:')
         status_msg = await ctx.send(embed=embed)
 
@@ -64,11 +63,11 @@ class Imdb(commands.Cog):
         embed.add_field(name='IMDb Rating', value=f'{rating}/10')
         embed.set_footer(text=f'Released: {release_date}')
 
-        if not image == 'N/A':
+        if image != 'N/A':
             embed.set_thumbnail(url=image)
-        if not plot == 'N/A' and len(plot) < 1024:
+        if not plot != 'N/A' and len(plot) < 1024:
             embed.add_field(name='Plot', value=plot, inline=False)
-        if not director == 'N/A':
+        if director != 'N/A':
             embed.description = director
 
         await status_msg.edit(embed=embed)
