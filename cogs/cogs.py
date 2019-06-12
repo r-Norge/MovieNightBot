@@ -1,8 +1,7 @@
-import discord
-import os
-import codecs
-import traceback
 from discord.ext import commands
+
+import traceback
+
 from cogs.utils import checks
 
 
@@ -15,8 +14,7 @@ class Cogs(commands.Cog):
     @checks.is_owner()
     async def _cogs(self, ctx):
         if ctx.invoked_subcommand is None:
-            await ctx.invoke(self.bot.get_command('help'),
-                             ctx.command.qualified_name)
+            await ctx.send_help(ctx.command)
 
     @_cogs.command()
     @checks.is_owner()
