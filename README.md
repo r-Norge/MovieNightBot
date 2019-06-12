@@ -1,2 +1,2 @@
 # MovieNightBot
-Move night bot thing helper
+Movie night bot thing helper
