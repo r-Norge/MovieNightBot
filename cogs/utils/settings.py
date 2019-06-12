@@ -1,24 +1,24 @@
 import os
 import codecs
-import locale
 import yaml
+
 
 class Settings:
     def __init__(self, **default_settings):
         self._DATA_PATH = 'data/bot/'
         self._SETTINGS_PATH = self._DATA_PATH + 'settings.yaml'
 
-        self.default_prefix = default_settings["prefix"]
-        self.default_mod = default_settings["moderator role"]
+        self.default_prefix = default_settings['prefix']
+        self.default_mod = default_settings['moderator role']
 
         if not os.path.exists(self._DATA_PATH):
             os.makedirs(self._DATA_PATH)
 
         if not os.path.isfile(self._SETTINGS_PATH):
-            with codecs.open(self._SETTINGS_PATH, "w+", encoding='utf8') as f:
+            with codecs.open(self._SETTINGS_PATH, 'w+', encoding='utf8') as f:
                 yaml.dump({}, f, indent=4)
 
-        with codecs.open(self._SETTINGS_PATH, "r", encoding='utf8') as f:
+        with codecs.open(self._SETTINGS_PATH, 'r', encoding='utf8') as f:
             self.settings = yaml.load(f)
 
     def _set(self, d, keys, val):
@@ -57,7 +57,7 @@ class Settings:
         if guild_id not in self.settings.keys():
             self.settings[guild_id] = {}
 
-        self.settings[guild_id]["_servername"] = guild.name
+        self.settings[guild_id]['_servername'] = guild.name
         self._set(self.settings[guild_id], setting.split('.'), value)
 
         with codecs.open(self._SETTINGS_PATH, 'w', encoding='utf8') as f:
