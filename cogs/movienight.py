@@ -1,8 +1,4 @@
-import discord
-
-
 from discord.ext import commands
-from cogs.utils import checks
 
 
 class MovieNight(commands.Cog):
@@ -10,8 +6,11 @@ class MovieNight(commands.Cog):
         self.bot = bot
 
     @commands.command(name='movie')
-    async def movie(self, ctx, melk):
-        await ctx.send(melk)
+    async def movie(self, ctx):
+        """
+        yeet
+        """
+        await ctx.send('yeet')
 
 
 def setup(bot):
