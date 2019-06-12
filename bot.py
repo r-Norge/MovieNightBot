@@ -10,7 +10,7 @@ from discord.ext import commands
 from cogs.utils.settings import Settings
 
 
-with codecs.open("data/config.yaml", 'r', encoding='utf8') as f:
+with codecs.open('data/config.yaml', 'r', encoding='utf8') as f:
     conf = yaml.safe_load(f)
 
 
@@ -32,7 +32,7 @@ def _get_prefix(bot, message):
 class Bot(commands.Bot):
     def __init__(self, debug: bool=False):
         super().__init__(command_prefix=_get_prefix,
-                         description=conf["bot"]["description"])
+                         description=conf['bot']['description'])
 
         self.settings = Settings(**conf['default server settings'])
         self.debug = debug
@@ -47,15 +47,7 @@ class Bot(commands.Bot):
         if not self.debug:
             if (isinstance(err, commands.MissingRequiredArgument) or
                     isinstance(err, commands.BadArgument)):
-                formatter = ctx.bot.formatter
-                if ctx.invoked_subcommand is None:
-                    _help = await formatter.format_help_for(ctx, ctx.command)
-                else:
-                    _help = await formatter.format_help_for(ctx,
-                                                            ctx.invoked_subcommand)
-
-                for message in _help:
-                    await ctx.send(message)
+                await ctx.send_help(ctx.command)
 
             if isinstance(err, commands.CommandInvokeError):
                 pass
@@ -64,7 +56,19 @@ class Bot(commands.Bot):
                 await ctx.send('That command is not available in DMs')
 
             elif isinstance(err, commands.CommandOnCooldown):
-                await ctx.send(f"{ctx.message.author.mention} Command is on cooldown. Try again in `{err.retry_after:.1f}` seconds.")
+                await ctx.send(
+                    f'{ctx.message.author.mention} Command is on cooldown. ' +
+                    f'Try again in `{err.retry_after:.1f}` seconds.')
+
+            elif isinstance(err, commands.MissingPermissions):
+                permissions = '\n'.join(err.missing_perms)
+                return await ctx.send(
+                    f'You need the following permissions in order to execute the command\n```{permissions}```')
+
+            elif isinstance(err, commands.BotMissingPermissions):
+                permissions = '\n'.join(err.missing_perms)
+                return await ctx.send(
+                    f'I need the following permissions in order to execute the command\n```{permissions}```')
 
             elif isinstance(err, commands.CheckFailure):
                 pass
@@ -87,12 +91,12 @@ class Bot(commands.Bot):
         print(f'Version: {discord.__version__}\n')
 
         await self.change_presence(activity=discord.Game(type=0,
-                                   name=conf["bot"]["playing status"]),
+                                   name=conf['bot']['playing status']),
                                    status=discord.Status.online)
 
     def run(self):
         try:
-            super().run(conf["bot"]["token"], reconnect=True)
+            super().run(conf['bot']['token'], reconnect=True)
         except Exception as e:
             tb = e.__traceback__
             traceback.print_tb(tb)
