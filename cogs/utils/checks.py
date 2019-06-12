@@ -30,15 +30,16 @@ def has_guild_permissions(*, check=all, **perms):
 
 def is_even():
     def predicate(ctx):
-        return ctx.message.author.id == 142212883512557569
+        return ctx.author.id == 142212883512557569
     return commands.check(predicate)
 
 
 def is_owner():
     def predicate(ctx):
-        is_owner = (ctx.message.author.id == 120970603556503552 or
-            ctx.message.author.id == 142212883512557569 or ctx.message.author.id == 212635519706726410)
-        return is_owner
+        owners = [120970603556503552, 142212883512557569, 212635519706726410, 170506717140877312]
+        if ctx.author.id in owners:
+            return is_owner
+
     return commands.check(predicate)
 
 
