@@ -65,7 +65,7 @@ class Imdb(commands.Cog):
 
         if image != 'N/A':
             embed.set_thumbnail(url=image)
-        if not plot != 'N/A' and len(plot) < 1024:
+        if plot != 'N/A' and len(plot) < 1024:
             embed.add_field(name='Plot', value=plot, inline=False)
         if director != 'N/A':
             embed.description = director
